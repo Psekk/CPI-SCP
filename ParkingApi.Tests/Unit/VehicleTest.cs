@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using System.Security.Claims;
 using V2.Models;
 using V2.Handlers;
-using V2.Helpers;
+using ParkingApi.Tests.Unit;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ParkingApi.Tests.Handlers;
+namespace ParkingApi.Tests.Unit.Handlers;
 
 public class VehicleHandlerTests
 {

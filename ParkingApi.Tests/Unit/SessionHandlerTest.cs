@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using V2.Models;
-using V2.Helpers;
+using ParkingApi.Tests.Unit;
 using V2.Data;
 using System.Security.Claims;
 
-namespace ParkingApi.Tests.Handlers;
+namespace ParkingApi.Tests.Unit.Handlers;
 
 public class SessionHandlerTests
 {

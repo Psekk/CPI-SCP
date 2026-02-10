@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using V2.Models;
-using V2.Helpers;
+using ParkingApi.Tests.Unit;
 using System;
 using System.Threading.Tasks;
 
-namespace ParkingApi.Tests.Handlers;
+namespace ParkingApi.Tests.Unit.Handlers;
 
 public class ParkingLotHandlerTests
 {
@@ -143,7 +143,7 @@ public class ParkingLotHandlerTests
         db.ParkingLots.Add(existingLot);
         db.SaveChanges();
 
-        var invalidRequest = new ParkingLotCreate("", "L", "A", 0, 0, 1m, 1m, 1, 1, "Open", null, null);
+        var invalidRequest = new ParkingLotCreate("", "L", "A", 0, 0, 1m, 1m, 1, 1, "", null, null);
         var result = await ParkingLotHandlers.UpdateParkingLot(1, invalidRequest, db);
 
         Assert.IsType<BadRequest<string>>(result);

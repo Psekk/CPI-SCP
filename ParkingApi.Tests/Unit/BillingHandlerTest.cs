@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using V2.Data;
 using V2.Models;
 using V2.Handlers; 
-using V2.Helpers;  
+using ParkingApi.Tests.Unit;  
 using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace ParkingApi.Tests.Handlers;
+namespace ParkingApi.Tests.Unit.Handlers;
 
 public class BillingHandlerTests
 {

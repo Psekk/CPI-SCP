@@ -6,12 +6,12 @@ using V2.Data;
 using V2.Models;
 using V2.Handlers;
 using V2.Services;
-using V2.Helpers;
+using ParkingApi.Tests.Unit;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace ParkingApi.Tests.Handlers;
+namespace ParkingApi.Tests.Unit.Handlers;
 
 public class ProfileHandlerTests
 {

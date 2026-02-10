@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using V2.Data;
 using V2.Models;
-using V2.Helpers;
+using ParkingApi.Tests.Unit;
 using V2.Services;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
-namespace ParkingApi.Tests.Handlers;
+namespace ParkingApi.Tests.Unit.Handlers;
 
 public class UserHandlerTests
 {
@@ -19,14 +19,15 @@ public class UserHandlerTests
     public void Register_ReturnsCreated_WhenDataIsValid()
     {
         using var db = DbContextHelper.GetInMemoryDbContext();
-        var request = new RegisterUserRequest("NieuweUser", "Wachtwoord123", "Piet Piraat", "0612345678", "piet@schip.nl", 1980);
-
+        var request = new RegisterUserRequest("NieuweUser", "Wachtwoord123", "Piet Piraat", "0612345678", "piet@example.com", 1980);
         var result = UserHandlers.Register(request, db);
 
         var statusCodeResult = Assert.IsAssignableFrom<IStatusCodeHttpResult>(result);
         Assert.Equal(201, statusCodeResult.StatusCode);
 
-        var savedUser = db.Users.FirstOrDefault(u => u.Email == "piet@schip.nl");
+        // Workaround for LibSql Provider Bug: Querying by string with '@' (Email) causes parameter parsing error.
+        // Query by Username instead.
+        var savedUser = db.Users.FirstOrDefault(u => u.Username == "NieuweUser");
         Assert.NotNull(savedUser);
         Assert.Equal("NieuweUser", savedUser.Username);
     }

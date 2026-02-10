@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using V2.Models;
-using V2.Helpers;
+using ParkingApi.Tests.Unit;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using System.Linq;
 
-namespace ParkingApi.Tests.Handlers;
+namespace ParkingApi.Tests.Unit.Handlers;
 
 public class PaymentHandlersTests
 {

@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Reflection;
-using V2.Helpers;
+using ParkingApi.Tests.Unit;
 using V2.Models;
 
-namespace ParkingApi.Tests.Handlers;
+namespace ParkingApi.Tests.Unit.Handlers;
 
 public class OrganizationHandlersTests
 {
