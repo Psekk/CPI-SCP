@@ -37,18 +37,15 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             var solutionRoot = Path.GetFullPath(Path.Combine(testBinDir, "..", "..", "..", ".."));
             var v2AppsettingsPath = Path.Combine(solutionRoot, "V2", "appsettings.json");
             
-            if (!File.Exists(v2AppsettingsPath))
-            {
-                throw new FileNotFoundException($"Could not find appsettings.json at: {v2AppsettingsPath}");
-            }
-            
+            // Load V2/appsettings.json if it exists (local dev).
+            // In CI the file may not exist — config comes from environment variables instead.
             configBuilder.AddJsonFile(
                 v2AppsettingsPath,
-                optional: false,
+                optional: true,
                 reloadOnChange: false
             );
 
-            // Allow environment variables to override appsettings.json (used in GitHub Actions CI)
+            // Environment variables override appsettings.json (used in GitHub Actions CI)
             // e.g. ConnectionStrings__TestConnection overrides ConnectionStrings:TestConnection
             configBuilder.AddEnvironmentVariables();
 

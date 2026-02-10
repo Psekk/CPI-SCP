@@ -74,6 +74,25 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
+      - name: Generate appsettings.json from secrets
+        run: |
+          cat > V2/appsettings.json <<EOF
+          {
+            "Jwt": {
+              "Issuer": "ParkingApi",
+              "Audience": "ParkingApiUsers",
+              "Key": "${JWT_KEY}"
+            },
+            "ConnectionStrings": {
+              "DefaultConnection": "${CONN_DEFAULT}",
+              "TestConnection": "${CONN_TEST}"
+            }
+          }
+          EOF
+        env:
+          JWT_KEY: ${{ secrets.JWT_KEY }}
+          CONN_DEFAULT: ${{ secrets.TURSO_DEFAULT_CONNECTION }}
+          CONN_TEST: ${{ secrets.TURSO_TEST_CONNECTION }}
       - name: Restore Dependencies
         run: dotnet restore
       - name: Run Integration Tests with Coverage
