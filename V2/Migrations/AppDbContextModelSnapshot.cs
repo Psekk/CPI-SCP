@@ -28,8 +28,51 @@ namespace V2.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CurrentUsageCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(0);
+
+                    b.Property<decimal?>("FixedAmount")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(true);
+
+                    b.Property<TimeSpan?>("MaxReservationDuration")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("MaxUsageCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<TimeSpan?>("MinReservationDuration")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("OrganizationId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ParkingLotId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("Percentage")
                         .HasColumnType("decimal(5,2)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset>("ValidUntil")
                         .HasColumnType("TEXT");
@@ -39,7 +82,64 @@ namespace V2.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("ParkingLotId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("ValidUntil");
+
                     b.ToTable("discount", (string)null);
+                });
+
+            modelBuilder.Entity("V2.Models.DiscountUsageModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("DiscountId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("FinalAmount")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("OriginalAmount")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("ReservationId")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("UsedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DiscountId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.HasIndex("UsedAt");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("discount_usage", (string)null);
                 });
 
             modelBuilder.Entity("V2.Models.OrganizationModel", b =>
@@ -264,8 +364,18 @@ namespace V2.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<decimal?>("DiscountAmount")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("DiscountCode")
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTimeOffset>("EndTime")
                         .HasColumnType("TEXT");
+
+                    b.Property<decimal>("OriginalCost")
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("ParkingLotId")
                         .HasColumnType("INTEGER");
@@ -285,6 +395,8 @@ namespace V2.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DiscountCode");
 
                     b.HasIndex("ParkingLotId");
 
@@ -309,7 +421,8 @@ namespace V2.Migrations
                     b.Property<int?>("BirthYear")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("CreatedAt")
+                    b.Property<string>("CreatedAt")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")

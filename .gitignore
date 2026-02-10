@@ -23,6 +23,8 @@ __pycache__/
 */__pycache__/
 */.pytest_cache/
 
+*.ps1
+
 # Logs & temp
 *.log
 *.tmp
@@ -47,6 +49,22 @@ V2/Data_json/**
 
 # Migration scripts and other local scripts
 *.ps1
-V2/command_map.md
+*.sql
 
-command_map.md
+# Documentation / generated markdown
+*.md
+
+# Diagrams
+diagrams/
+*.puml
+
+# AI agent config
+.claude/
+.agent/
+
+# App settings (secrets live in GitHub Secrets / local env vars only)
+**/appsettings.json
+
+# Test results / output
+*.txt
+**/TestResults/
